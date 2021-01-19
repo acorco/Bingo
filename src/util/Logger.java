@@ -1,7 +1,9 @@
-package utils;
+package util;
 
 import java.util.Scanner;
-
+/* *
+   * @author: Alejandro Córcoles
+ */
 public class Logger {
         public static void println(Color color, String text) { // Funció per canviar el color amb salt de línea.
             System.out.print(color);
@@ -28,14 +30,14 @@ public class Logger {
 
             Scanner scanner = new Scanner(System.in);
 
-            utils.Logger.print(Color.YELLOW_BOLD, prompt);
+            util.Logger.print(Color.YELLOW_BOLD, prompt);
 
             String nextLine = scanner.nextLine();
 
             try {
                 return Integer.parseInt(nextLine);
             } catch (NumberFormatException ignored) {
-                utils.Logger.println(Color.RED_BOLD, "Error. Has d'introduir un número.");
+                util.Logger.println(Color.RED_BOLD, "Error. Has d'introduir un número.");
 
                 return getInt(prompt);
             }
@@ -43,7 +45,7 @@ public class Logger {
 
         public static String getString(String prompt) {
             Scanner scanner = new Scanner(System.in);
-            utils.Logger.print(Color.YELLOW_BOLD, prompt);
+            util.Logger.print(Color.YELLOW_BOLD, prompt);
 
             return scanner.nextLine();
         }

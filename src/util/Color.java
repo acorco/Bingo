@@ -1,6 +1,6 @@
-package utils;
+package util;
 
-/*
+/* *
  * @function: Aquest enum conté tots els colors necessaris per a formatar el programa
  * @author: Alejandro Córcoles
  */
