@@ -19,10 +19,10 @@ public class Card {
     }
 
     private Cell[][] _createCard(int h, int w, Player player) {
-        ArrayList<Integer> numbers = _getRandomNonRepeatingIntegers(27, 1, 90);
+        ArrayList<Integer> numbers = _getRandomNonRepeatingIntegers(28, 1, 90);
         Cell[][] card = new Cell[h][w];
         int k = 0;
-        for (int i = 0; i < card.length; i++, k++) {
+        for (int i = 0; i < card.length; i++) {
             for (int j = 0; j < card[i].length; j++, k++) {
                 Cell cell = new Cell();
                 cell.setNumber(numbers.get(k));
@@ -54,4 +54,11 @@ public class Card {
         return _numbers;
     }
 
+    public void getCard(){
+        for (int i = 0; i < _card.length; i++) {
+            for (int j = 0; j < _card[i].length; j++) {
+                System.out.println(_card[i][j].getNumber());
+            }
+        }
+    }
 }
