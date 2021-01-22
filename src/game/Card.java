@@ -54,11 +54,19 @@ public class Card {
         return _numbers;
     }
 
-    public void getCard(){
+    public void getCardNumbers(){
         for (int i = 0; i < _card.length; i++) {
             for (int j = 0; j < _card[i].length; j++) {
                 System.out.println(_card[i][j].getNumber());
             }
         }
+    }
+
+    public Cell[][] getCard(){
+        return this._card;
+    }
+
+    public Player getPlayer(){
+        return this._player;
     }
 }
