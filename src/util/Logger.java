@@ -1,5 +1,6 @@
 package util;
 
+import java.util.Random;
 import java.util.Scanner;
 /* *
    * @author: Alejandro Córcoles
@@ -49,5 +50,12 @@ public class Logger {
 
             return scanner.nextLine();
         }
+
+        public static int getRandomInt(int min, int max) {
+            Random random = new Random();
+
+            return random.nextInt((max - min) + 1) + min;
+        }
+
 
 }
