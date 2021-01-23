@@ -1,7 +1,9 @@
 package game;
 
+import java.awt.*;
 import java.util.ArrayList;
 import util.Logger;
+import util.Color;
 
 public class Drum {
     private ArrayList<Integer> _numbers;
@@ -30,7 +32,6 @@ public class Drum {
         _usedNumbers.add(num);
 
         return num;
-
     }
 
     public ArrayList<Integer> getUsedNumbers(){

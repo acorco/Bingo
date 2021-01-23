@@ -1,35 +1,36 @@
 package game;
 
+import util.Color;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
 public class WinnerValidator {
     public static Player CheckBingo(Card card, Drum drum) {
-        ArrayList<Integer> playerNumbers = new ArrayList<Integer>();
-        ArrayList<Integer> drumNumbers = drum.getUsedNumbers();
-        int k = 0;
-
         for (int i = 0; i < card.getCard().length; i++) {
-            for (int j = 0; j < card.getCard()[i].length; j++, k++) {
-                playerNumbers.add(k);
-            }
-        }
-
-        Collections.sort(playerNumbers);
-        Collections.sort(drumNumbers);
-
-        int x = 0;
-        if (playerNumbers.size() <= drumNumbers.size()) {
-            for (int i = 0; i < playerNumbers.size() + 1; i++, x++) {
-                if (!playerNumbers.get(x).equals(drumNumbers.get(x))) {
+            for (int j = 0; j < card.getCard()[i].length; j++) {
+                if (card.getCard()[i][j].getColor() == Color.WHITE_BOLD){
                     return null;
                 }
             }
-        }else{
-            return null;
         }
-
         return card.getPlayer();
+    }
+
+    public static Player CheckLine(Card card, Drum drum){
+        int matchNumbers = 0;
+        for (int i = 0; i < card.getCard().length; i++) {
+            matchNumbers = 0;
+            for (int j = 0; j < card.getCard()[i].length; j++) {
+                if (card.getCard()[i][j].getColor() == Color.GREEN_BOLD){
+                    matchNumbers++;
+                }
+                if (matchNumbers == 9){
+                    return card.getPlayer();
+                }
+            }
+        }
+        return null;
     }
 }
