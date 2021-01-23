@@ -82,6 +82,7 @@ public class Logger {
         System.out.print(color);
         System.out.print(num);
         System.out.print(Color.RESET);
+        System.out.println(" s");
     }
 
 
@@ -91,5 +92,20 @@ public class Logger {
         System.out.print(Color.RESET);
     }
 
+    public static char getChar(String prompt){
+        Scanner scanner = new Scanner(System.in);
 
+        util.Logger.print(Color.BLUE_BOLD, prompt);
+
+        String nextLine = scanner.nextLine().toLowerCase();
+
+        try {
+            return nextLine.charAt(0);
+        } catch (Exception ignored) {
+            util.Logger.println(Color.RED_BOLD, "Error. Has d'introduir un càracter.");
+
+            return getChar(prompt);
+        }
+
+    }
 }

@@ -1,3 +1,4 @@
+import com.sun.security.jgss.GSSUtil;
 import game.Card;
 import game.Drum;
 import game.Player;
@@ -21,7 +22,7 @@ public class Main {
     public static void displayMenu(){
         System.out.println(Color.BLUE_BOLD);
         System.out.println("BINGO");
-        System.out.println("---------");
+        System.out.println("-------------------");
         System.out.println("1. Juga 1 jugador");
         System.out.println("2. Juga 2 jugadors");
         System.out.println("3. Exit");
@@ -47,7 +48,7 @@ public class Main {
                     System.out.println();
                     if (drum.getDrum().size() > 0) {
                         System.out.print(Color.BLUE_BOLD);
-                        System.out.println("Ha sortit el " + drum.throwNumber());
+                        System.out.println("HA SORTIT EL " + drum.throwNumber());
                         System.out.print(Color.RESET);
                     }
                     card.getCardNumbers(drum);
@@ -70,7 +71,12 @@ public class Main {
                         anotherNumberChoice();
                     }else{
                         System.out.println();
-                        Logger.println(Color.GREEN_BOLD, "BINGO! " + winnerPlayer.getName().toUpperCase() + " ha cantat bingo!");
+                        Logger.println(Color.GREEN_BOLD, "BINGO! " + winnerPlayer.getName().toUpperCase() + " HA CANTAT BINGO!");
+                        System.out.println();
+                        System.out.println();
+
+                        Logger.println(Color.BLUE_BOLD, "HAN SORTIT ELS SEGÜENTS NÚMEROS: ");
+                        drum.getNumbersYouHave(card);
                         displayMenu();
                         winner = true;
                     }
@@ -92,13 +98,13 @@ public class Main {
                     System.out.println();
                     if (drum2.getDrum().size() > 0) {
                         System.out.print(Color.BLUE_BOLD);
-                        System.out.println("Ha sortit el " + drum2.throwNumber());
+                        System.out.println("HA SORTIT EL " + drum2.throwNumber());
                         System.out.print(Color.RESET);
                     }
 
 
                     for (Card eachCard : cardArray) {
-                        Logger.println(Color.BLUE_BOLD, "CATRÓ DE " + eachCard.getPlayer().getName());
+                        Logger.println(Color.BLUE_BOLD, "CATRÓ DE " + eachCard.getPlayer().getName().toUpperCase());
                         eachCard.getCardNumbers(drum2);
                         System.out.println();
                         Collections.sort(drum2.getUsedNumbers());
@@ -115,7 +121,9 @@ public class Main {
 
                         if (winnerPlayer != null) {
                             System.out.println();
-                            Logger.println(Color.GREEN_BOLD, "BINGO! " + winnerPlayer.getName().toUpperCase() + " ha cantat bingo!");
+                            Logger.println(Color.GREEN_BOLD, "BINGO! " + winnerPlayer.getName().toUpperCase() + " HA CANTAT BINGO!");
+                            Logger.println(Color.BLUE_BOLD, "HAN SORTIT ELS SEGÜENTS NÚMEROS: ");
+                            drum2.getNumbersYouHave(eachCard);
                             displayMenu();
                             winner = true;
                         }
@@ -136,14 +144,16 @@ public class Main {
         }
     }
     public static void anotherNumberChoice(){
-        char option = Logger.getStringColor(Color.BLUE_BOLD,"Vols un altre número? s/n: ").toLowerCase().charAt(0);
+        char option = Logger.getChar("VOLS UN ALTRE NÚMERO? (S/N): ");
         switch (option){
             case 's': break;
             case 'n':
-                System.out.println("Joc finalitzat");
+                System.out.println();
+                Logger.println(Color.BLUE_BOLD, "Joc finalitzat");
+                displayMenu();
                 break;
             default:
-                System.out.println("Introdueix una opció vàlida.");
+                Logger.println(Color.RED_BOLD, "Introdueix una opció vàlida.");
                 anotherNumberChoice();
         }
     }

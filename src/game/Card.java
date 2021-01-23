@@ -26,7 +26,7 @@ public class Card {
         Cell[][] card = new Cell[h][w];
         int k = 0;
         int x = 0;
-        for (int i = 0; i < card.length; i++) {
+        /*for (int i = 0; i < card.length; i++) {
             for (int j = 0; j < card[i].length; j++, k++, x++) {
                 Cell cell = new Cell();
                 if (x % 2 == 0) {
@@ -37,10 +37,10 @@ public class Card {
 
                 card[i][j] = cell;
             }
-        }
+        }*/
 
-        /* for (int i = 0; i < card[i].length; i++) {
-            for (int j = 0; j < card[0].length; j++, x++,k++) {
+        for (int i = 0; i < card[0].length; i++) {
+            for (int j = 0; j < card.length; j++, x++,k++) {
                 Cell cell = new Cell();
                 if (x % 2 == 0) {
                     cell.setNumber(numbers.get(k));
@@ -48,9 +48,9 @@ public class Card {
                     cell.setNumber(0);
                 }
 
-                card[i][j] = cell;
+                card[j][i] = cell;
             }
-        }*/
+        }
         return card;
     }
 
