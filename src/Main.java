@@ -28,11 +28,13 @@ public class Main {
         System.out.println();
         System.out.println(Color.RESET);
         int opc = Logger.getInt("Opció: ");
+        boolean winner;
+        boolean line;
 
         switch(opc){
             case 1:
-                boolean winner = false;
-                boolean line = false;
+                winner = false;
+                line = false;
 
                 Player player1 = new Player(Logger.getStringColor(Color.BLUE_BOLD, "Introdueix el teu nom: "));
                 Card card = new Card(player1);
@@ -59,7 +61,7 @@ public class Main {
                     if (!line){
                         Player linePlayer = WinnerValidator.CheckLine(card,drum);
                         if (linePlayer != null) {
-                            Logger.println(Color.GREEN_BOLD, "LINEA! " + linePlayer.getName() + " HA CANTAT LÍNEA.");
+                            Logger.println(Color.GREEN_BOLD, "LINEA! " + linePlayer.getName().toUpperCase() + " HA CANTAT LÍNEA.");
                             line = true;
                         }
                     }
@@ -68,12 +70,60 @@ public class Main {
                         anotherNumberChoice();
                     }else{
                         System.out.println();
-                        Logger.println(Color.GREEN_BOLD, "BINGO! " + winnerPlayer.getName() + " ha cantat bingo!");
+                        Logger.println(Color.GREEN_BOLD, "BINGO! " + winnerPlayer.getName().toUpperCase() + " ha cantat bingo!");
                         displayMenu();
                         winner = true;
                     }
                 }
             case 2:
+                winner = false;
+                line = false;
+                Drum drum2 = new Drum();
+                Player player_1 = new Player(Logger.getStringColor(Color.BLUE_BOLD, "Introdueix el nom jugador 1: "));
+                Player player_2 = new Player(Logger.getStringColor(Color.BLUE_BOLD, "Introdueix el neu nom jugador 2: "));
+                Card[] cardArray = new Card[]{new Card(player_1), new Card(player_2)};
+
+                for (Card eachCard : cardArray) {
+                    Logger.println(Color.BLUE_BOLD, "AQUEST ES EL CARTRÓ DE " + eachCard.getPlayer().getName().toUpperCase());
+                    eachCard.getCardNumbers(drum2);
+                }
+
+                while(!winner) {
+                    System.out.println();
+                    if (drum2.getDrum().size() > 0) {
+                        System.out.print(Color.BLUE_BOLD);
+                        System.out.println("Ha sortit el " + drum2.throwNumber());
+                        System.out.print(Color.RESET);
+                    }
+
+
+                    for (Card eachCard : cardArray) {
+                        Logger.println(Color.BLUE_BOLD, "CATRÓ DE " + eachCard.getPlayer().getName());
+                        eachCard.getCardNumbers(drum2);
+                        System.out.println();
+                        Collections.sort(drum2.getUsedNumbers());
+
+                        Player winnerPlayer = WinnerValidator.CheckBingo(eachCard, drum2);
+
+                        if (!line) {
+                            Player linePlayer = WinnerValidator.CheckLine(eachCard, drum2);
+                            if (linePlayer != null) {
+                                Logger.println(Color.GREEN_BOLD, "LINEA! " + linePlayer.getName().toUpperCase() + " HA CANTAT LÍNEA.");
+                                line = true;
+                            }
+                        }
+
+                        if (winnerPlayer != null) {
+                            System.out.println();
+                            Logger.println(Color.GREEN_BOLD, "BINGO! " + winnerPlayer.getName().toUpperCase() + " ha cantat bingo!");
+                            displayMenu();
+                            winner = true;
+                        }
+                    }
+
+                    anotherNumberChoice();
+                    System.out.println();
+                }
             case 3:
                 Logger.println(Color.BLUE_BOLD, "Joc finalitzat.");
                 Runtime.getRuntime().exit(0);
