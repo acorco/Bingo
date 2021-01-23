@@ -3,6 +3,7 @@ package game;
 import util.Logger;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Card {
     private final int _h;
@@ -54,11 +55,18 @@ public class Card {
         return _numbers;
     }
 
-    public void getCardNumbers(){
+    public void getCardNumbers(Drum drum){
+        int lineBreak = 1;
         for (int i = 0; i < _card.length; i++) {
-            for (int j = 0; j < _card[i].length; j++) {
-                System.out.println(_card[i][j].getNumber());
+            for (int j = 0; j < _card[i].length; j++, lineBreak++) {
+                _card[i][j].compareNumberCell(drum.getUsedNumbers());
+                Logger.printIntSpace(_card[i][j].getColor(), _card[i][j].getNumber());
+                if (lineBreak == 9){
+                    System.out.println();
+                    lineBreak = 0;
+                }
             }
+
         }
     }
 

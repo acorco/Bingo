@@ -1,5 +1,6 @@
 package util;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 /* *
@@ -56,6 +57,30 @@ public class Logger {
 
             return random.nextInt((max - min) + 1) + min;
         }
+
+        public static int getRandomIntList(ArrayList<Integer> list) {
+            Random random = new Random();
+            int num = getRandomInt(1, list.size());
+
+            if (list.contains(num)){
+                return num;
+            }
+
+            return getRandomIntList(list);
+        }
+
+        public static void printInt(Color color, int num ) {
+            System.out.print(color);
+            System.out.print(num);
+            System.out.print(Color.RESET);
+        }
+
+
+    public static void printIntSpace(Color color, int num ) {
+        System.out.print(color);
+        System.out.printf("%5d",num);
+        System.out.print(Color.RESET);
+    }
 
 
 }

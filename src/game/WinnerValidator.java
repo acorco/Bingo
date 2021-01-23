@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class WinnerValidator {
-    public static Player CheckBingo(Card card, Drum drum){
+    public static Player CheckBingo(Card card, Drum drum) {
         ArrayList<Integer> playerNumbers = new ArrayList<Integer>();
         ArrayList<Integer> drumNumbers = drum.getUsedNumbers();
         int k = 0;
@@ -20,13 +20,16 @@ public class WinnerValidator {
         Collections.sort(drumNumbers);
 
         int x = 0;
-        for (int i = 0; i < playerNumbers.size(); i++, x++) {
-            if (!playerNumbers.get(x).equals(drumNumbers.get(x))){
-                return null;
+        if (playerNumbers.size() <= drumNumbers.size()) {
+            for (int i = 0; i < playerNumbers.size() + 1; i++, x++) {
+                if (!playerNumbers.get(x).equals(drumNumbers.get(x))) {
+                    return null;
+                }
             }
-
-
+        }else{
+            return null;
         }
+
         return card.getPlayer();
     }
 }

@@ -24,9 +24,9 @@ public class Drum {
     }
 
     public int throwNumber(){
-        int num = Logger.getRandomInt(_numbers.indexOf(1),_numbers.size());
+        int num = Logger.getRandomIntList(_numbers);
 
-        _numbers.remove(num);
+        _numbers.remove(Integer.valueOf(num));
         _usedNumbers.add(num);
 
         return num;
