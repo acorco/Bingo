@@ -49,9 +49,10 @@ public class Main {
                         System.out.print(Color.RESET);
                     }
                     card.getCardNumbers(drum);
+                    System.out.println();
                     Collections.sort(drum.getUsedNumbers());
-                    Logger.println(Color.BLUE_BOLD, "De moment han sortit els següents números:");
-                    System.out.println(drum.getUsedNumbers());
+
+
 
                     Player winnerPlayer = WinnerValidator.CheckBingo(card,drum);
 
@@ -68,6 +69,7 @@ public class Main {
                     }else{
                         System.out.println();
                         Logger.println(Color.GREEN_BOLD, "BINGO! " + winnerPlayer.getName() + " ha cantat bingo!");
+                        displayMenu();
                         winner = true;
                     }
                 }

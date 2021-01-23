@@ -1,9 +1,11 @@
 package game;
 
+import util.Color;
 import util.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class Card {
     private final int _h;
@@ -23,13 +25,32 @@ public class Card {
         ArrayList<Integer> numbers = _getRandomNonRepeatingIntegers(28, 1, 90);
         Cell[][] card = new Cell[h][w];
         int k = 0;
+        int x = 0;
         for (int i = 0; i < card.length; i++) {
-            for (int j = 0; j < card[i].length; j++, k++) {
+            for (int j = 0; j < card[i].length; j++, k++, x++) {
                 Cell cell = new Cell();
-                cell.setNumber(numbers.get(k));
+                if (x % 2 == 0) {
+                    cell.setNumber(numbers.get(k));
+                }else{
+                    cell.setNumber(0);
+                }
+
                 card[i][j] = cell;
             }
         }
+
+        /* for (int i = 0; i < card[i].length; i++) {
+            for (int j = 0; j < card[0].length; j++, x++,k++) {
+                Cell cell = new Cell();
+                if (x % 2 == 0) {
+                    cell.setNumber(numbers.get(k));
+                }else{
+                    cell.setNumber(0);
+                }
+
+                card[i][j] = cell;
+            }
+        }*/
         return card;
     }
 
@@ -43,24 +64,32 @@ public class Card {
     }
 
     private ArrayList<Integer> _getRandomNonRepeatingIntegers(int size, int min, int max) {
-        ArrayList<Integer> _numbers = new ArrayList<Integer>();
+        ArrayList<Integer> numbers = new ArrayList<Integer>();
 
-        while (_numbers.size() < size) {
+        while (numbers.size() < size) {
             int random = Logger.getRandomInt(1, 90);
 
-            if (!_numbers.contains(random)) {
-                _numbers.add(random);
+            if (!numbers.contains(random)) {
+                numbers.add(random);
             }
         }
-        return _numbers;
+        Collections.sort(numbers);
+        return numbers;
     }
 
     public void getCardNumbers(Drum drum){
         int lineBreak = 1;
         for (int i = 0; i < _card.length; i++) {
             for (int j = 0; j < _card[i].length; j++, lineBreak++) {
-                _card[i][j].compareNumberCell(drum.getUsedNumbers());
-                Logger.printIntSpace(_card[i][j].getColor(), _card[i][j].getNumber());
+                if (_card[i][j].getNumber() > 0) {
+                    _card[i][j].compareNumberCell(drum.getUsedNumbers());
+                    Logger.printIntSpace(_card[i][j].getColor(), _card[i][j].getNumber());
+                }else{
+                    _card[i][j].setColor(Color.GREEN_BOLD);
+                    System.out.print(Color.BLACK_BOLD);
+                    System.out.printf("%5c", '@');
+                    System.out.print(Color.RESET);
+                }
                 if (lineBreak == 9){
                     System.out.println();
                     lineBreak = 0;
