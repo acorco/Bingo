@@ -39,6 +39,7 @@ public class Main {
                 Drum drum = new Drum();
                 Logger.println(Color.BLUE_BOLD, "EL TEU CARTRÓ: ");
                 card.getCardNumbers(drum);
+                anotherNumberChoice();
 
                 while(!winner) {
 
@@ -115,6 +116,7 @@ public class Main {
                                 line = true;
                             }
                         }
+                        anotherNumberChoice();
 
                         if (winnerPlayer != null) {
                             System.out.println();
