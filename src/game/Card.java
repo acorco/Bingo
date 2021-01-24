@@ -2,7 +2,6 @@ package game;
 
 import util.Color;
 import util.Logger;
-
 import java.lang.reflect.Array;
 import java.util.*;
 

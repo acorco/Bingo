@@ -2,7 +2,6 @@ package game;
 
 import util.Color;
 import util.Logger;
-
 import java.util.ArrayList;
 
 public class Cell {

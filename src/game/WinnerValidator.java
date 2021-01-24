@@ -2,10 +2,6 @@ package game;
 
 import util.Color;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-
 public class WinnerValidator {
     public static Player checkBingo(Card card, Drum drum) {
         for (int i = 0; i < card.getCard().length; i++) {

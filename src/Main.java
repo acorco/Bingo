@@ -7,16 +7,17 @@ import util.Logger;
 
 import java.util.Collections;
 
-/*
- *
+/* *
  * @author: Alejandro Córcoles
+ * @version: 1.0
  */
 public class Main {
     public static void main(String[] args) {
         displayMenu();
     }
 
-    public static void displayMenu(){
+
+    public static void displayMenu() {
         System.out.println(Color.BLUE_BOLD);
         System.out.println("BINGO");
         System.out.println("-------------------");
@@ -29,7 +30,7 @@ public class Main {
         boolean winner;
         boolean line;
 
-        switch(opc){
+        switch (opc) {
             case 1:
                 winner = false;
                 line = false;
@@ -41,7 +42,7 @@ public class Main {
                 card.getCardNumbers(drum);
                 anotherNumberChoice();
 
-                while(!winner) {
+                while (!winner) {
 
                     System.out.println();
                     if (drum.getDrum().size() > 0) {
@@ -54,20 +55,19 @@ public class Main {
                     Collections.sort(drum.getUsedNumbers());
 
 
+                    Player winnerPlayer = WinnerValidator.checkBingo(card, drum);
 
-                    Player winnerPlayer = WinnerValidator.checkBingo(card,drum);
-
-                    if (!line){
-                        Player linePlayer = WinnerValidator.checkLine(card,drum);
+                    if (!line) {
+                        Player linePlayer = WinnerValidator.checkLine(card, drum);
                         if (linePlayer != null) {
                             Logger.println(Color.GREEN_BOLD, "LINEA! " + linePlayer.getName().toUpperCase() + " HA CANTAT LÍNEA.");
                             line = true;
                         }
                     }
 
-                    if (winnerPlayer == null){
+                    if (winnerPlayer == null) {
                         anotherNumberChoice();
-                    }else{
+                    } else {
                         System.out.println();
                         Logger.println(Color.GREEN_BOLD, "BINGO! " + winnerPlayer.getName().toUpperCase() + " HA CANTAT BINGO!");
                         System.out.println();
@@ -92,7 +92,7 @@ public class Main {
                     eachCard.getCardNumbers(drum2);
                 }
                 anotherNumberChoice();
-                while(!winner) {
+                while (!winner) {
                     System.out.println();
                     if (drum2.getDrum().size() > 0) {
                         System.out.print(Color.BLUE_BOLD);
@@ -142,10 +142,12 @@ public class Main {
 
         }
     }
-    public static void anotherNumberChoice(){
+
+    public static void anotherNumberChoice() {
         char option = Logger.getChar("VOLS UN ALTRE NÚMERO? (S/N): ");
-        switch (option){
-            case 's': break;
+        switch (option) {
+            case 's':
+                break;
             case 'n':
                 System.out.println();
                 Logger.println(Color.BLUE_BOLD, "Joc finalitzat");
