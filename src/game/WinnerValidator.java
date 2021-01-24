@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class WinnerValidator {
-    public static Player CheckBingo(Card card, Drum drum) {
+    public static Player checkBingo(Card card, Drum drum) {
         for (int i = 0; i < card.getCard().length; i++) {
             for (int j = 0; j < card.getCard()[i].length; j++) {
                 if (card.getCard()[i][j].getColor() == Color.WHITE_BOLD){
@@ -18,7 +18,7 @@ public class WinnerValidator {
         return card.getPlayer();
     }
 
-    public static Player CheckLine(Card card, Drum drum){
+    public static Player checkLine(Card card, Drum drum){
         int matchNumbers = 0;
         for (int i = 0; i < card.getCard().length; i++) {
             matchNumbers = 0;

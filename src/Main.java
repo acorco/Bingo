@@ -1,4 +1,3 @@
-import com.sun.security.jgss.GSSUtil;
 import game.Card;
 import game.Drum;
 import game.Player;
@@ -6,9 +5,7 @@ import game.WinnerValidator;
 import util.Color;
 import util.Logger;
 
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Locale;
 
 /*
  *
@@ -57,10 +54,10 @@ public class Main {
 
 
 
-                    Player winnerPlayer = WinnerValidator.CheckBingo(card,drum);
+                    Player winnerPlayer = WinnerValidator.checkBingo(card,drum);
 
                     if (!line){
-                        Player linePlayer = WinnerValidator.CheckLine(card,drum);
+                        Player linePlayer = WinnerValidator.checkLine(card,drum);
                         if (linePlayer != null) {
                             Logger.println(Color.GREEN_BOLD, "LINEA! " + linePlayer.getName().toUpperCase() + " HA CANTAT LÍNEA.");
                             line = true;
@@ -109,10 +106,10 @@ public class Main {
                         System.out.println();
                         Collections.sort(drum2.getUsedNumbers());
 
-                        Player winnerPlayer = WinnerValidator.CheckBingo(eachCard, drum2);
+                        Player winnerPlayer = WinnerValidator.checkBingo(eachCard, drum2);
 
                         if (!line) {
-                            Player linePlayer = WinnerValidator.CheckLine(eachCard, drum2);
+                            Player linePlayer = WinnerValidator.checkLine(eachCard, drum2);
                             if (linePlayer != null) {
                                 Logger.println(Color.GREEN_BOLD, "LINEA! " + linePlayer.getName().toUpperCase() + " HA CANTAT LÍNEA.");
                                 line = true;

@@ -3,9 +3,8 @@ package game;
 import util.Color;
 import util.Logger;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class Card {
     private final int _h;
@@ -16,35 +15,25 @@ public class Card {
     public Card(Player player) {
         _h = 3;
         _w = 9;
-        this._player = player;
-        _card = this._createCard(_h, _w, player);
+        _player = player;
+        _card = this._createCard(player);
 
     }
 
-    private Cell[][] _createCard(int h, int w, Player player) {
-        ArrayList<Integer> numbers = _getRandomNonRepeatingIntegers(28, 1, 90);
-        Cell[][] card = new Cell[h][w];
-        int k = 0;
-        int x = 0;
-        /*for (int i = 0; i < card.length; i++) {
-            for (int j = 0; j < card[i].length; j++, k++, x++) {
-                Cell cell = new Cell();
-                if (x % 2 == 0) {
-                    cell.setNumber(numbers.get(k));
-                }else{
-                    cell.setNumber(0);
-                }
+    private Cell[][] _createCard(Player player) {
 
-                card[i][j] = cell;
-            }
-        }*/
+        ArrayList<Integer> numbers = _getRandomNonRepeatingIntegers(28, 1, 90);
+        Cell[][] card = new Cell[_h][_w];
+        int x = 0;
+
+        boolean[][] holes = this._getHoles();
 
         for (int i = 0; i < card[0].length; i++) {
-            for (int j = 0; j < card.length; j++, x++,k++) {
+            for (int j = 0; j < card.length; j++, x++) {
                 Cell cell = new Cell();
-                if (x % 2 == 0) {
-                    cell.setNumber(numbers.get(k));
-                }else{
+                if (!holes[j][i]) {
+                    cell.setNumber(numbers.get(x));
+                } else {
                     cell.setNumber(0);
                 }
 
@@ -54,17 +43,38 @@ public class Card {
         return card;
     }
 
-    public void draw(){
-        System.out.println();
-        for (int i = 0; i < _card.length; i++) {
-            for (int j = 0; j < _card[i].length; j++) {
+    private boolean[][] _getHoles() {
+        boolean[][] holes = new boolean[_h][_w];
 
+        for (int i = 0; i < _h; i++) {
+            ArrayList<Integer> indexes = new ArrayList<>();
+            boolean[] rowHoles = new boolean[_w];
+
+            for (int j = 0; j < 4; j++) {
+                Random random = new Random();
+                int index = random.nextInt(_w);
+
+                while (indexes.contains(index)) {
+                    index = random.nextInt(_w);
+
+                    if (!indexes.contains(index)) {
+                        break;
+                    }
+                }
+
+                indexes.add(index);
+
+                rowHoles[index] = true;
             }
+
+            holes[i] = rowHoles;
         }
+
+        return holes;
     }
 
     private ArrayList<Integer> _getRandomNonRepeatingIntegers(int size, int min, int max) {
-        ArrayList<Integer> numbers = new ArrayList<Integer>();
+        ArrayList<Integer> numbers = new ArrayList<>();
 
         while (numbers.size() < size) {
             int random = Logger.getRandomInt(1, 90);
@@ -77,20 +87,20 @@ public class Card {
         return numbers;
     }
 
-    public void getCardNumbers(Drum drum){
+    public void getCardNumbers(Drum drum) {
         int lineBreak = 1;
         for (int i = 0; i < _card.length; i++) {
             for (int j = 0; j < _card[i].length; j++, lineBreak++) {
                 if (_card[i][j].getNumber() > 0) {
                     _card[i][j].compareNumberCell(drum.getUsedNumbers());
                     Logger.printIntSpace(_card[i][j].getColor(), _card[i][j].getNumber());
-                }else{
+                } else {
                     _card[i][j].setColor(Color.GREEN_BOLD);
-                    System.out.print(Color.BLACK_BOLD);
+                    System.out.print(Color.WHITE_BOLD);
                     System.out.printf("%5c", '@');
                     System.out.print(Color.RESET);
                 }
-                if (lineBreak == 9){
+                if (lineBreak == 9) {
                     System.out.println();
                     lineBreak = 0;
                 }
@@ -99,11 +109,11 @@ public class Card {
         }
     }
 
-    public Cell[][] getCard(){
+    public Cell[][] getCard() {
         return this._card;
     }
 
-    public Player getPlayer(){
+    public Player getPlayer() {
         return this._player;
     }
 }
