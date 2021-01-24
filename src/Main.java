@@ -91,7 +91,7 @@ public class Main {
                     Logger.println(Color.BLUE_BOLD, "AQUEST ES EL CARTRÓ DE " + eachCard.getPlayer().getName().toUpperCase());
                     eachCard.getCardNumbers(drum2);
                 }
-
+                anotherNumberChoice();
                 while(!winner) {
                     System.out.println();
                     if (drum2.getDrum().size() > 0) {
@@ -116,7 +116,7 @@ public class Main {
                                 line = true;
                             }
                         }
-                        anotherNumberChoice();
+
 
                         if (winnerPlayer != null) {
                             System.out.println();
