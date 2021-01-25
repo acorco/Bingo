@@ -5,6 +5,8 @@ import game.WinnerValidator;
 import util.Color;
 import util.Logger;
 
+import game.*;
+import util.*;
 import java.util.Collections;
 
 /* *
@@ -12,12 +14,12 @@ import java.util.Collections;
  * @version: 1.0
  */
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         displayMenu();
     }
 
 
-    public static void displayMenu() {
+    public static void displayMenu() throws InterruptedException {
         System.out.println(Color.BLUE_BOLD);
         System.out.println("BINGO");
         System.out.println("-------------------");
@@ -62,6 +64,7 @@ public class Main {
                         if (linePlayer != null) {
                             Logger.println(Color.GREEN_BOLD, "LINEA! " + linePlayer.getName().toUpperCase() + " HA CANTAT LÍNEA.");
                             line = true;
+                            Thread.sleep(4000);
                         }
                     }
 
@@ -75,6 +78,7 @@ public class Main {
 
                         Logger.println(Color.BLUE_BOLD, "HAN SORTIT ELS SEGÜENTS NÚMEROS: ");
                         drum.getNumbersYouHave(card);
+                        Thread.sleep(4000);
                         displayMenu();
                         winner = true;
                     }
@@ -82,10 +86,16 @@ public class Main {
             case 2:
                 winner = false;
                 line = false;
+                System.out.println(Color.BLUE_BOLD);
+                int nPlayers = Logger.getIntLimit("Quants jugadors vols? (Màxim 5): ", 5, 2);
+                System.out.println(Color.RESET);
                 Drum drum2 = new Drum();
-                Player player_1 = new Player(Logger.getStringColor(Color.BLUE_BOLD, "Introdueix el nom jugador 1: "));
-                Player player_2 = new Player(Logger.getStringColor(Color.BLUE_BOLD, "Introdueix el neu nom jugador 2: "));
-                Card[] cardArray = new Card[]{new Card(player_1), new Card(player_2)};
+                Card[] cardArray = new Card[nPlayers];
+
+                for (int i = 0; i < nPlayers; i++) {
+                    cardArray[i] = new Card(new Player(Logger.getString("Introdueix el nom del jugador " + (i+1) + ": ")));
+                }
+
 
                 for (Card eachCard : cardArray) {
                     Logger.println(Color.BLUE_BOLD, "AQUEST ES EL CARTRÓ DE " + eachCard.getPlayer().getName().toUpperCase());
@@ -113,6 +123,7 @@ public class Main {
                             Player linePlayer = WinnerValidator.checkLine(eachCard, drum2);
                             if (linePlayer != null) {
                                 Logger.println(Color.GREEN_BOLD, "LINEA! " + linePlayer.getName().toUpperCase() + " HA CANTAT LÍNEA.");
+                                Thread.sleep(4000);
                                 line = true;
                             }
                         }
@@ -123,6 +134,7 @@ public class Main {
                             Logger.println(Color.GREEN_BOLD, "BINGO! " + winnerPlayer.getName().toUpperCase() + " HA CANTAT BINGO!");
                             Logger.println(Color.BLUE_BOLD, "HAN SORTIT ELS SEGÜENTS NÚMEROS: ");
                             drum2.getNumbersYouHave(eachCard);
+                            Thread.sleep(4000);
                             displayMenu();
                             winner = true;
                         }
@@ -143,7 +155,7 @@ public class Main {
         }
     }
 
-    public static void anotherNumberChoice() {
+    public static void anotherNumberChoice() throws InterruptedException {
         char option = Logger.getChar("VOLS UN ALTRE NÚMERO? (S/N): ");
         switch (option) {
             case 's':

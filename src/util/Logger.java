@@ -46,6 +46,16 @@ public class Logger {
         }
     }
 
+    public static int getIntLimit(String prompt, int limit, int min) {
+        int num = getInt(prompt);
+
+        if (num <= limit && num >= min){
+            return num;
+        }
+
+        return getIntLimit(prompt, limit, min);
+    }
+
     public static String getString(String prompt) {
         Scanner scanner = new Scanner(System.in);
         Logger.print(Color.YELLOW_BOLD, prompt);
