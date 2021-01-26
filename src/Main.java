@@ -23,8 +23,8 @@ public class Main {
         System.out.println(Color.BLUE_BOLD);
         System.out.println("BINGO");
         System.out.println("-------------------");
-        System.out.println("1. Juga 1 jugador");
-        System.out.println("2. Juga 2 jugadors");
+        System.out.println("1. Singleplayer");
+        System.out.println("2. Multiplayer");
         System.out.println("3. Exit");
         System.out.println();
         System.out.println(Color.RESET);
